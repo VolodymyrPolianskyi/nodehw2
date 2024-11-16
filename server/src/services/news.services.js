@@ -1,8 +1,19 @@
 const fileDB = require('../DAL/schemas.dal')
 const newsTable = fileDB.getTable('newspost');
 
-const getAllPosts = () => {
-  return newsTable.getAll();
+const getAllPosts = (page, size) => {
+  const data = newsTable.getAll();
+  const totalPosts = data.length;
+
+  const startIndex = (page - 1) * size;
+  const endIndex = startIndex + size;
+
+  const paginatedPosts = data.slice(startIndex, endIndex);
+
+  return {
+    posts: paginatedPosts,
+    totalPosts,
+  };
 };
 
 const getPostById = (id) => {
@@ -21,7 +32,6 @@ const deletePost = (id) => {
   return newsTable.delete(id);
 };
 
-// Экспортируем все функции
 module.exports = {
   getAllPosts,
   getPostById,

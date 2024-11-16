@@ -2,8 +2,17 @@ const newsServices = require('../services/news.services');
 
 const getAllPosts = async (req, res) => {
   try {
-    const posts = await newsServices.getAllPosts();
-    res.status(200).json(posts);
+    const page = parseInt(req.query.page) || 1; 
+    const size = parseInt(req.query.size) || 10; 
+
+    const { posts, totalPosts } = await newsServices.getAllPosts(page, size);
+
+    res.status(200).json({
+      data: posts,
+      currentPage: page,
+      totalPages: Math.ceil(totalPosts / size),
+      totalPosts,
+    });
   } catch (err) {
     res.status(500).json({ error: 'Failed to fetch posts' });
   }

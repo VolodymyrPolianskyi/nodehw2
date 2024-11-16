@@ -1,17 +1,20 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-export const fetchNewsPosts = createAsyncThunk('news/fetchNewsPosts', async () => {
-  try {
-    const response = await fetch('http://localhost:8000/api/newsposts');
-    if (!response.ok) {
-      throw new Error(`HTTP error! Status: ${response.status}`);
+export const fetchNewsPosts = createAsyncThunk(
+  'news/fetchNewsPosts',
+  async ({ page = 1, size = 10 } = {}) => {
+    try {
+      const response = await fetch(`http://localhost:8000/api/newsposts?page=${page}&size=${size}`);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return await response.json();
+    } catch (error) {
+      console.error('Error fetching news:', error);
+      throw error;
     }
-    return await response.json();
-  } catch (error) {
-    console.error('Error fetching news:', error);
-    throw error;
   }
-});
+);
 
 export const fetchNewsPostById = createAsyncThunk('news/fetchNewsPostById', async (id) => {
   const response = await fetch(`http://localhost:8000/api/newsposts/${id}`);
@@ -48,17 +51,18 @@ const newsSlice = createSlice({
     currentPost: null,
     loading: false,
     error: null,
+    totalPages: 1,
   },
   reducers: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchNewsPosts.pending, (state) => {
-        
         state.loading = true;
       })
       .addCase(fetchNewsPosts.fulfilled, (state, action) => {
         state.loading = false;
-        state.posts = action.payload;
+        state.posts = action.payload.data;
+        state.totalPages = action.payload.totalPages; 
       })
       .addCase(fetchNewsPostById.fulfilled, (state, action) => {
         state.currentPost = action.payload;
