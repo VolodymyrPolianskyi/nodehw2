@@ -1,0 +1,20 @@
+{"level":"error","message":"Invalid post body","timestamp":"2024-11-18T21:39:04.095Z"}
+{"level":"info","message":{"body":{},"method":"GET","url":"/?page=1&size=5"},"timestamp":"2024-11-20T17:55:15.778Z"}
+{"level":"info","message":{"body":{},"method":"GET","url":"/?page=1&size=5"},"timestamp":"2024-11-20T17:56:21.054Z"}
+{"level":"info","message":{"body":{},"method":"GET","url":"/?page=1&size=5"},"timestamp":"2024-11-20T17:56:45.352Z"}
+{"level":"info","message":{"body":{},"method":"GET","url":"/?page=1&size=5"},"timestamp":"2024-11-20T17:57:46.853Z"}
+{"level":"info","message":{"body":{},"method":"GET","url":"/?page=1&size=5"},"timestamp":"2024-11-20T17:58:00.469Z"}
+{"level":"info","message":{"body":{},"method":"GET","url":"/?page=1&size=5"},"timestamp":"2024-11-20T17:58:13.350Z"}
+{"level":"info","message":{"body":{},"method":"GET","url":"/?page=1&size=5"},"timestamp":"2024-11-20T17:58:18.752Z"}
+{"level":"info","message":{"body":{},"method":"GET","url":"/?page=1&size=5"},"timestamp":"2024-11-20T17:59:03.662Z"}
+{"level":"info","message":{"body":{},"method":"GET","url":"/?page=1&size=5"},"timestamp":"2024-11-20T18:00:43.271Z"}
+{"level":"info","message":{"body":{},"method":"GET","url":"/?page=1&size=5"},"timestamp":"2024-11-20T18:01:11.115Z"}
+{"level":"info","message":{"body":{},"method":"GET","url":"/?page=1&size=5"},"timestamp":"2024-11-20T18:01:24.806Z"}
+{"level":"info","message":{"body":{},"method":"GET","url":"/?page=1&size=5"},"timestamp":"2024-11-20T18:05:08.010Z"}
+{"level":"info","message":{"body":{},"method":"GET","url":"/?page=1&size=5"},"timestamp":"2024-11-20T18:06:14.176Z"}
+{"level":"info","message":{"body":{},"method":"GET","url":"/?page=1&size=5"},"timestamp":"2024-11-20T18:07:04.394Z"}
+{"level":"info","message":{"body":{},"method":"GET","url":"/?page=1&size=5"},"timestamp":"2024-11-20T18:07:22.857Z"}
+{"level":"info","message":{"body":{},"method":"GET","url":"/1"},"timestamp":"2024-11-20T18:07:29.631Z"}
+{"level":"info","message":{"body":{},"method":"GET","url":"/?page=1&size=5"},"timestamp":"2024-11-20T18:07:35.646Z"}
+{"level":"info","message":{"body":{"genre":"Other","isPrivate":true,"text":"qwd121212","title":"qwdqw"},"method":"POST","url":"/"},"timestamp":"2024-11-20T18:07:43.723Z"}
+{"level":"info","message":{"body":{},"method":"GET","url":"/?page=1&size=5"},"timestamp":"2024-11-20T18:07:43.775Z"}

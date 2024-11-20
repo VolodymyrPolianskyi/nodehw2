@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchNewsPosts } from './newsSlice';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const NewsList = () => {
   const dispatch = useDispatch();
-  const { posts, loading, totalPages } = useSelector(state => state.news);
+  const navigate = useNavigate()
+  const { posts, loading, totalPages, error } = useSelector(state => state.news);
 
   const [page, setPage] = useState(1);
   const [size, setSize] = useState(5);
@@ -13,6 +14,10 @@ const NewsList = () => {
   useEffect(() => {
     dispatch(fetchNewsPosts({ page, size }));
   }, [dispatch, page, size]);
+
+  useEffect(() => {
+    if (error) navigate('/error', { state: { message: error } });
+  }, [error, navigate]);
 
   if (loading) return <div>Loading...</div>;
 
@@ -33,6 +38,7 @@ const NewsList = () => {
               <Link to={`/news/${post.id}`}>{post.title}</Link>
             </h2>
             <p className='text'>{post.text}</p>
+            {post.isPrivate && <p className="private">Private</p>}
           </div>
         ))}
       </div>

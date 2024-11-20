@@ -85,8 +85,10 @@ const fileDB = new FileDB();
 const newspostSchema = {
   id: Number,
   title: String,
+  genre: String,
   text: String,
-  createDate: Date,
+  isPrivate: Boolean,
+  createDate: Date
 };
 fileDB.registerSchema('newspost', newspostSchema);
 

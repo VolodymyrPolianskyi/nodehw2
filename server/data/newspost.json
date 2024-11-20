@@ -1,38 +1,34 @@
 [
   {
     "id": 1,
-    "title": "wedwef",
-    "text": "efwefewfew",
-    "createDate": "2024-11-16T18:20:07.813Z"
+    "title": "qwdqw",
+    "text": "dqwdqwd",
+    "genre": "Other",
+    "isPrivate": true,
+    "createDate": "2024-11-18T20:55:22.268Z"
   },
   {
     "id": 2,
-    "title": "qwdqwd",
-    "text": "wqdqwd",
-    "createDate": "2024-11-16T18:20:14.669Z"
+    "title": "qwdqw",
+    "text": "qwdqw",
+    "genre": "Other",
+    "isPrivate": true,
+    "createDate": "2024-11-18T20:55:33.212Z"
   },
   {
     "id": 3,
-    "title": "qwdqwd",
-    "text": "wqdwqd",
-    "createDate": "2024-11-16T18:20:16.758Z"
+    "title": "qwdq",
+    "text": "213213123",
+    "genre": "Other",
+    "isPrivate": true,
+    "createDate": "2024-11-20T17:58:18.705Z"
   },
   {
     "id": 4,
-    "title": "qwdwqd",
-    "text": "wqdqwd",
-    "createDate": "2024-11-16T18:20:19.452Z"
-  },
-  {
-    "id": 5,
-    "title": "wqdqwdqwdqwd",
-    "text": "qwd",
-    "createDate": "2024-11-16T18:20:21.837Z"
-  },
-  {
-    "id": 6,
-    "title": "qwdwqdqw",
-    "text": "dwqdqwdqw",
-    "createDate": "2024-11-16T18:20:24.108Z"
+    "title": "qwdqw",
+    "text": "qwd121212",
+    "genre": "Other",
+    "isPrivate": true,
+    "createDate": "2024-11-20T18:07:43.724Z"
   }
 ]

@@ -1,7 +1,6 @@
 require('dotenv').config()
 const express = require('express')
 const path = require('path')
-const fileDB = require('./src/DAL/schemas.dal')
 const cors = require('cors')
 const newsRouter = require('./src/routes/news.routes')
 
@@ -16,6 +15,7 @@ app.use(express.static(path.join(__dirname,'../dist/build')))
 
 app.use('/api/newsposts', newsRouter)
 
+
 app.get('*', (req,res)=>{
   res.sendFile(path.join(__dirname, '../frontend/dist/index.html'))
 })
@@ -24,3 +24,4 @@ app.listen(PORT, ()=>{
   console.log(`http://${process.env.HOST}:${PORT}`);
   
 })
+// npm run start 

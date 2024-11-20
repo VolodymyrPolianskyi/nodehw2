@@ -24,6 +24,7 @@ const NewsPage = () =>{
     return(
         <div className='main'>
             <h1 className='title'>{currentPost.title}</h1>
+            <h2 className='genre'>{currentPost.genre}</h2>
             <p className='full-text'>{currentPost.text}</p>
             <div className='options'>
                 <Link to="/" className='link'>Back</Link>

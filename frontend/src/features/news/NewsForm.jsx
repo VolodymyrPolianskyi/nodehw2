@@ -8,10 +8,13 @@ const NewsForm = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const currentPost = useSelector((state) => state.news.currentPost)
+  const error = useSelector((state) => state.news.error)
 
   const [formData, setFormData] = useState({
     title: '',
     text: '',
+    genre: '',
+    isPrivate: false
   })
 
   useEffect(() => {
@@ -19,24 +22,37 @@ const NewsForm = () => {
       dispatch(fetchNewsPostById(id));
     }
   }, [dispatch, id])
+  
+  useEffect(() => {
+    if (error) navigate('/error', { state: { message: error } });
+  }, [error, navigate]);
 
   useEffect(() => {
     if (currentPost && id) {
       setFormData({
         title: currentPost.title,
         text: currentPost.text,
+        genre: currentPost.genre,
+        isPrivate: currentPost.isPrivate
       })
     }
   }, [currentPost, id]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }))
-  }
-
+    const { name, value, checked, type } = e.target;
+    
+    if (type === 'checkbox') {
+      setFormData((prevState) => ({
+        ...prevState,
+        [name]: checked,
+      }));
+    } else {
+      setFormData((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
+  };
   const handleSubmit = async (e) => {
     e.preventDefault()
 
@@ -63,6 +79,17 @@ const NewsForm = () => {
             required
           />
         </div>
+        <div className='genre-label'>
+          <label htmlFor="genre">Genre:</label>
+          <input
+            type="text"
+            id="genre"
+            name="genre"
+            value={formData.genre}
+            onChange={handleChange}
+            required
+          />
+        </div>
         <div className='text-label'>
           <label htmlFor="text">Text:</label>
           <textarea
@@ -73,6 +100,10 @@ const NewsForm = () => {
             rows="5"
             required
           ></textarea>
+        </div>
+        <div className="isprivate">
+          <label htmlFor="isPrivate">Is private?</label>
+          <input type="checkbox" id='isPrivate' name='isPrivate' checked={formData.isPrivate} onChange={handleChange}/>
         </div>
         <div className='options'>
           <button type="submit" className='link'>{id ? 'Update' : 'Create'}</button>

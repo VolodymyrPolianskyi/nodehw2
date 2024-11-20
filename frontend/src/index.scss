@@ -53,6 +53,7 @@
     background-color: lightcyan;
     border-radius: 3px;
     box-shadow: 1px 1px 1px gray;
+    position: relative;
 }
 
 .title{
@@ -155,3 +156,10 @@
   .pagination span {
     margin: 0 10px;
   }
+
+.private{
+    position: absolute;
+    top: 5px;
+    right: 10px;
+    color: green;
+}

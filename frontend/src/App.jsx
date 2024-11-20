@@ -4,6 +4,7 @@ import store from './app/store'
 import NewsList from './features/news/NewsList'
 import NewsForm from './features/news/NewsForm'
 import NewsPage from './features/news/NewsPage'
+import ErrorPage from './features/error/ErrorPage'
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/news/:id" element={<NewsPage />} />
           <Route path="/create" element={<NewsForm />} />
           <Route path="/edit/:id" element={<NewsForm />} />
+          <Route path="/error" element={<ErrorPage message={"error"} />} />
         </Routes>
       </BrowserRouter>
     </Provider>
