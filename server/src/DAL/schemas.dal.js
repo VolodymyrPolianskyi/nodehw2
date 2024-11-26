@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const jwt = require('jsonwebtoken')
 
 class FileDB {
   constructor() {
@@ -21,8 +22,19 @@ class FileDB {
     if (!this.schemas[tableName]) {
       throw new Error(`Schema for table "${tableName}" is not registered.`);
     }
+    else if(tableName == "users"){
+      throw new Error(`Use another method for getting user table`);
+    }
     const filePath = path.join(this.dataDir, `${tableName}.json`);
     return new Table(filePath, this.schemas[tableName]);
+  }
+
+  getUserTable(tableName){
+    if (!this.schemas[tableName]) {
+      throw new Error(`Schema for table "${tableName}" is not registered.`);
+    }
+    const filePath = path.join(this.dataDir, `${tableName}.json`);
+    return new UserTable(filePath, this.schemas[tableName]);
   }
 }
 
@@ -80,6 +92,45 @@ class Table {
   }
 }
 
+class UserTable{
+  constructor(filePath, schema) {
+    this.filePath = filePath;
+    this.schema = schema;
+  }
+
+  _loadData() {
+    if (fs.existsSync(this.filePath)) {
+      const rawData = fs.readFileSync(this.filePath);
+      return JSON.parse(rawData);
+    }
+    return [];
+  }
+
+  _saveData(data) {
+    fs.writeFileSync(this.filePath, JSON.stringify(data, null, 2), 'utf8');
+  }
+
+  async registerUser( email, password){
+    const data = this._loadData();
+    const user = { email: email, password:password };
+    const token = await jwt.sign({email: email}, "SomeSecretKey", {expiresIn: '1h'})
+    console.log(token);
+    
+    data.push(user);
+    this._saveData(data);
+    return token;
+  }
+
+  loginUser(email, password){
+    const token = jwt.sign({email:email}, 'SomeSecretKey', {expiresIn: '1h'})
+    return token
+  }
+
+  getUserByEmail(email){
+    return this._loadData().find(user => user.email === email)
+  }
+}
+
 const fileDB = new FileDB();
 
 const newspostSchema = {
@@ -90,6 +141,13 @@ const newspostSchema = {
   isPrivate: Boolean,
   createDate: Date
 };
+
+const userSchema = {
+  name:String,
+  email: String
+}
+
 fileDB.registerSchema('newspost', newspostSchema);
+fileDB.registerSchema('users', userSchema)
 
 module.exports = fileDB;

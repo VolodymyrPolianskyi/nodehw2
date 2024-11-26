@@ -18,3 +18,4 @@
 {"level":"info","message":{"body":{},"method":"GET","url":"/?page=1&size=5"},"timestamp":"2024-11-20T18:07:35.646Z"}
 {"level":"info","message":{"body":{"genre":"Other","isPrivate":true,"text":"qwd121212","title":"qwdqw"},"method":"POST","url":"/"},"timestamp":"2024-11-20T18:07:43.723Z"}
 {"level":"info","message":{"body":{},"method":"GET","url":"/?page=1&size=5"},"timestamp":"2024-11-20T18:07:43.775Z"}
+{"level":"info","message":{"body":{"confirmPassword":"213214nN!","email":"qw@qwdw","password":"213214nN!"},"method":"GET","url":"/"},"timestamp":"2024-11-26T10:03:42.008Z"}
