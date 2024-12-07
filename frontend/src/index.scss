@@ -54,6 +54,12 @@
     border-radius: 3px;
     box-shadow: 1px 1px 1px gray;
     position: relative;
+    & *{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+    }
 }
 
 .title{
@@ -101,6 +107,7 @@
     flex-direction: column;
     gap: 15px;
     width: 60%;
+    
 }
 
 .title-label{
@@ -162,4 +169,42 @@
     top: 5px;
     right: 10px;
     color: green;
+}
+
+.post-span{
+    font-size: 10px;
+    position: absolute;
+    bottom: 5px;
+}
+
+.auth{
+    position: absolute;
+    display: flex;
+    gap: 20px;
+    top: 20px;
+    right: 20px;
+}
+
+.auth-label{
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    justify-content: right;
+    & input{
+       width: 80%; 
+       height: 25px;
+       font-size: 20px;
+       border: 0;
+       box-shadow: 2px 1px 1px gray;
+       border-radius: 3px;
+    }
+    & label{
+        font-size: 25px;
+    }
+}
+
+.another-value{
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }

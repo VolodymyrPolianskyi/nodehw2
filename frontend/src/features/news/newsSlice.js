@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 
 
@@ -24,39 +25,37 @@ export const fetchNewsPostById = createAsyncThunk('news/fetchNewsPostById', asyn
 
 export const createNewsPost = createAsyncThunk(
   'news/createNewsPost',
-  async (news, { rejectWithValue }) => {
-    const response = await fetch('http://localhost:8000/api/newsposts', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(news),
-    });
-    if (!response.ok) {
-      const errorData = await response.json();
-      return rejectWithValue(errorData.error || 'Неизвестная ошибка');
-    }
-    return response.json();
+  async ({ title, text, token }) => {
+    const response = await axios.post("http://localhost:8000/api/newsposts/", {title, text}, {headers: {Authorization: `Bearer ${token}`}})
+    return response.data;
   }
 );
 
 export const updateNewsPost = createAsyncThunk(
   'news/updateNewsPost',
-  async ({ id, updates }, { rejectWithValue }) => {
+  async ({ id, updates, token }, { rejectWithValue }) => {
     const response = await fetch(`http://localhost:8000/api/newsposts/${id}`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json',
+                 'Authorization': `Bearer ${token}`
+       },
       body: JSON.stringify(updates),
     });
     if (!response.ok) {
       const errorData = await response.json();
-      return rejectWithValue(errorData.error || 'Неизвестная ошибка');
+      return rejectWithValue(errorData || 'Unexpected error occured');
     }
     return response.json();
   }
 );
 
-export const deleteNewsPost = createAsyncThunk('news/deleteNewsPost', async (id) => {
-  await fetch(`http://localhost:8000/api/newsposts/${id}`, { method: 'DELETE' })
-  return id
+export const deleteNewsPost = createAsyncThunk('news/deleteNewsPost', async ({id, token} ,  { rejectWithValue }) => {
+  const response = await fetch(`http://localhost:8000/api/newsposts/${id}`, { method: 'DELETE', headers: {'Authorization': `Bearer ${token}`} })
+  if (!response.ok) {
+    const errorData = await response.json();
+    return rejectWithValue(errorData || 'Unexpected error occured');
+  }
+  return response.json()
 })
 
 const newsSlice = createSlice({
@@ -103,6 +102,10 @@ const newsSlice = createSlice({
       })
       .addCase(deleteNewsPost.fulfilled, (state, action) => {
         state.posts = state.posts.filter(post => post.id !== action.payload);
+      })
+      .addCase(deleteNewsPost.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       })
   },
 });

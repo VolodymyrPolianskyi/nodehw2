@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken'
 
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
@@ -7,9 +7,9 @@ const authenticateToken = (req, res, next) => {
 
   jwt.verify(token, 'SomeSecretKey', (err, user) => {
     if (err) return res.status(403).json({ error: "Invalid token" });
-    req.user = user;
+    res.locals.user = user
     next();
   });
 };
 
-module.exports = authenticateToken;
+export default authenticateToken

@@ -1,7 +1,8 @@
-const usersService = require('../services/users.services')
-const logger = require('../utils/logger')
+import {usersService} from '../services/users.services.js'
 
-const registerUser = async(req,res) => {
+export default class usersController{
+
+static registerUser = async(req,res) => {
     const { email, password, confirmPassword } = req.body
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
     if (!emailRegex.test(email)) {
@@ -23,7 +24,7 @@ const registerUser = async(req,res) => {
     res.status(202).json(result)
 }
 
-const loginUser = async(req,res) => {
+static loginUser = async(req,res) => {
     const {email, password} = req.body
     const result = await usersService.loginUser(email, password)
     if(result instanceof Object){
@@ -32,7 +33,4 @@ const loginUser = async(req,res) => {
     }
     res.status(202).json(result)
 }
-
-module.exports = {
-    registerUser, loginUser
 }

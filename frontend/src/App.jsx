@@ -5,6 +5,8 @@ import NewsList from './features/news/NewsList'
 import NewsForm from './features/news/NewsForm'
 import NewsPage from './features/news/NewsPage'
 import ErrorPage from './features/error/ErrorPage'
+import LoginPage from './features/auth/LoginPage'
+import RegisterPage from './features/auth/RegisterPage'
 
 function App() {
   return (
@@ -16,6 +18,8 @@ function App() {
           <Route path="/create" element={<NewsForm />} />
           <Route path="/edit/:id" element={<NewsForm />} />
           <Route path="/error" element={<ErrorPage message={"error"} />} />
+          <Route path='/login' element={<LoginPage/>}/>
+          <Route path='/register' element={<RegisterPage/>}/>
         </Routes>
       </BrowserRouter>
     </Provider>
