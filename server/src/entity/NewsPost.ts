@@ -7,10 +7,13 @@ export class NewsPost {
   id:number;
 
   @Column()
-  title:string;
+  header:string;
 
   @Column()
   text:string;
+
+  @Column({default:false})
+  deleted: boolean;
 
   @ManyToOne(()=>User, (user)=>user.newsPosts)
   @JoinColumn({name:'user_id'})

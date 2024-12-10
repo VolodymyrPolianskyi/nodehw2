@@ -12,6 +12,9 @@ export class User {
     @Column()
     password: string;
 
+    @Column({default:false})
+    deleted: boolean;
+
     @OneToMany(()=>NewsPost, (newsPost) => newsPost.author)
     newsPosts: Relation<NewsPost[]>
 }

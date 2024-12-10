@@ -18,11 +18,15 @@ __decorate([
 __decorate([
     Column(),
     __metadata("design:type", String)
-], NewsPost.prototype, "title", void 0);
+], NewsPost.prototype, "header", void 0);
 __decorate([
     Column(),
     __metadata("design:type", String)
 ], NewsPost.prototype, "text", void 0);
+__decorate([
+    Column({ default: false }),
+    __metadata("design:type", Boolean)
+], NewsPost.prototype, "deleted", void 0);
 __decorate([
     ManyToOne(() => User, (user) => user.newsPosts),
     JoinColumn({ name: 'user_id' }),

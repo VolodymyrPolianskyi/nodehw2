@@ -24,6 +24,10 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
+    Column({ default: false }),
+    __metadata("design:type", Boolean)
+], User.prototype, "deleted", void 0);
+__decorate([
     OneToMany(() => NewsPost, (newsPost) => newsPost.author),
     __metadata("design:type", Object)
 ], User.prototype, "newsPosts", void 0);
