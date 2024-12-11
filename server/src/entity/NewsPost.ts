@@ -6,13 +6,13 @@ export class NewsPost {
   @PrimaryGeneratedColumn()
   id:number;
 
-  @Column()
+  @Column({type:"text"})
   header:string;
 
-  @Column()
+  @Column({type:"text"})
   text:string;
 
-  @Column({default:false})
+  @Column({default:false, type:'boolean'})
   deleted: boolean;
 
   @ManyToOne(()=>User, (user)=>user.newsPosts)

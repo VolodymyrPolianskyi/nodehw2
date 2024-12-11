@@ -44,10 +44,10 @@
 }
 
 .post{
-    height: 150px;
+    height: 170px;
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 5px;
     align-items: center;
     justify-content: center;
     background-color: lightcyan;
@@ -67,6 +67,7 @@
         text-decoration: none;
         color: blue;
         text-transform: uppercase;
+        font-size: 15px;
     }
 }
 
@@ -78,6 +79,7 @@
     overflow: hidden;
     word-wrap: break-word;
     word-break: break-all;
+    font-size: 10px;
 }
 
 .options{

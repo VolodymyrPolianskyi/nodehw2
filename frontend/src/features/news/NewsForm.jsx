@@ -13,7 +13,7 @@ const NewsForm = () => {
   const error = useSelector((state) => state.news.error)
 
   const [formData, setFormData] = useState({
-    title: '',
+    header: '',
     text: ''
   })
 
@@ -33,7 +33,7 @@ const NewsForm = () => {
   useEffect(() => {
     if (currentPost && id) {
       setFormData({
-        title: currentPost.title,
+        header: currentPost.header,
         text: currentPost.text
       })
     }
@@ -52,7 +52,7 @@ const NewsForm = () => {
     if (id) {
       await dispatch(updateNewsPost({ id: Number(id), updates: formData, token: token }))
     } else {
-      await dispatch(createNewsPost({title: formData.title, text: formData.text, token:token}))
+      await dispatch(createNewsPost({header: formData.header, text: formData.text, token:token}))
     }
     navigate('/')
   }
@@ -70,12 +70,12 @@ const NewsForm = () => {
       <h1>{id ? 'Edit News Post' : 'Create News Post'}</h1>
       <form onSubmit={handleSubmit} className='form'>
         <div className='title-label'>
-          <label htmlFor="title">Title:</label>
+          <label htmlFor="header">Header:</label>
           <input
             type="text"
-            id="title"
-            name="title"
-            value={formData.title}
+            id="header"
+            name="header"
+            value={formData.header}
             onChange={handleChange}
             required
           />

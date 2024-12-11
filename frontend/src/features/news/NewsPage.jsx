@@ -27,7 +27,7 @@ const NewsPage = () =>{
 
     return(
         <div className='main'>
-            <h1 className='title'>{currentPost.title}</h1>
+            <h1 className='title'>{currentPost.header}</h1>
             <h2>Made by : {currentPost.author.email}</h2>
             <p className='full-text'>{currentPost.text}</p>
             <div className='options'>

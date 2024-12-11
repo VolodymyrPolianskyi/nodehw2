@@ -6,13 +6,13 @@ export class User {
     @PrimaryGeneratedColumn()
     user_id: number;
 
-    @Column({unique:true})
+    @Column({unique:true, type:'text'})
     email: string;
 
-    @Column()
+    @Column({type:'text'})
     password: string;
 
-    @Column({default:false})
+    @Column({default:false, type:'boolean'})
     deleted: boolean;
 
     @OneToMany(()=>NewsPost, (newsPost) => newsPost.author)

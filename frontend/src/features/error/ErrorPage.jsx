@@ -1,11 +1,12 @@
 import { useSelector } from 'react-redux';
 
 const ErrorPage = () => {
-    const message = useSelector(s=>s.news.error)
+    let message = useSelector((s)=>s.news.error.error)
+    let otherMessage = useSelector((s)=>s.auth.error)
   return (
     <div style={{ textAlign: 'center', padding: '50px' }}>
       <h1>Oops! Something went wrong.</h1>
-      <p>{message || 'An unexpected error occurred.'}</p>
+      <p>{message || otherMessage || 'An unexpected error occurred.'}</p>
       <a href="/">Back</a>
     </div>
   );

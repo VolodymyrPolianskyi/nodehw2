@@ -25,8 +25,8 @@ export const fetchNewsPostById = createAsyncThunk('news/fetchNewsPostById', asyn
 
 export const createNewsPost = createAsyncThunk(
   'news/createNewsPost',
-  async ({ title, text, token }) => {
-    const response = await axios.post("http://localhost:8000/api/newsposts/", {title, text}, {headers: {Authorization: `Bearer ${token}`}})
+  async ({ header, text, token }) => {
+    const response = await axios.post("http://localhost:8000/api/newsposts/", {header, text}, {headers: {Authorization: `Bearer ${token}`}})
     return response.data;
   }
 );

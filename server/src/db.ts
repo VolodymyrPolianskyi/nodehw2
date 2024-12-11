@@ -15,7 +15,7 @@ export const AppDataSource = new DataSource({
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB,
-  synchronize: true,
+  synchronize: false,
   entities: [User, NewsPost],
   migrations:[AddDeletedColumns1733774555699,AddIndexesToColumns1733774489797,RenameTitleToHeader1733774515040]
 })
