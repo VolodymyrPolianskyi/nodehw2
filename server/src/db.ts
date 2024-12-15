@@ -10,12 +10,15 @@ import { RenameTitleToHeader1733774515040 } from './migrations/1733774515040-Ren
 
 export const AppDataSource = new DataSource({
   type: "postgres",
-  host: "localhost",
-  port: +process.env.DB_PORT || 1488,
+  host: process.env.HOST,
+  port: +process.env.PORT,
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB,
-  synchronize: false,
+  ssl:{
+    rejectUnauthorized:false
+  },
+  synchronize: true,
   entities: [User, NewsPost],
   migrations:[AddDeletedColumns1733774555699,AddIndexesToColumns1733774489797,RenameTitleToHeader1733774515040]
 })

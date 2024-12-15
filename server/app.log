@@ -416,3 +416,4 @@
 {"level":"info","message":{"body":{},"method":"GET","url":"/?page=1&size=5"},"timestamp":"2024-12-11T08:21:32.179Z"}
 {"level":"info","message":{"body":{},"method":"GET","url":"/?page=1&size=5"},"timestamp":"2024-12-11T08:21:38.569Z"}
 {"level":"info","message":{"body":{},"method":"GET","url":"/?page=1&size=5"},"timestamp":"2024-12-11T08:21:41.190Z"}
+{"level":"info","message":{"body":{"email":"123@gmail.com","password":"12345678N@n"},"method":"GET","url":"/"},"timestamp":"2024-12-15T11:26:29.249Z"}
