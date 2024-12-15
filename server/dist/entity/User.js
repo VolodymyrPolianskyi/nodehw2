@@ -16,15 +16,15 @@ __decorate([
     __metadata("design:type", Number)
 ], User.prototype, "user_id", void 0);
 __decorate([
-    Column({ unique: true }),
+    Column({ unique: true, type: 'text' }),
     __metadata("design:type", String)
 ], User.prototype, "email", void 0);
 __decorate([
-    Column(),
+    Column({ type: 'text' }),
     __metadata("design:type", String)
 ], User.prototype, "password", void 0);
 __decorate([
-    Column({ default: false }),
+    Column({ default: false, type: 'boolean' }),
     __metadata("design:type", Boolean)
 ], User.prototype, "deleted", void 0);
 __decorate([
