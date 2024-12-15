@@ -6,7 +6,7 @@ import axios from 'axios';
 export const fetchNewsPosts = createAsyncThunk(
   'news/fetchNewsPosts',
   async ({ page = 1, size = 10 } = {}) => {
-    const response = await fetch(`http://localhost:8000/api/newsposts?page=${page}&size=${size}`);
+    const response = await fetch(`https://nodehw2.onrender.com/api/newsposts?page=${page}&size=${size}`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -16,7 +16,7 @@ export const fetchNewsPosts = createAsyncThunk(
 );
 
 export const fetchNewsPostById = createAsyncThunk('news/fetchNewsPostById', async (id) => {
-  const response = await fetch(`http://localhost:8000/api/newsposts/${id}`);
+  const response = await fetch(`https://nodehw2.onrender.com/api/newsposts/${id}`);
   if(!response.ok){
     return response.json()
   }
@@ -26,7 +26,7 @@ export const fetchNewsPostById = createAsyncThunk('news/fetchNewsPostById', asyn
 export const createNewsPost = createAsyncThunk(
   'news/createNewsPost',
   async ({ header, text, token }) => {
-    const response = await axios.post("http://localhost:8000/api/newsposts/", {header, text}, {headers: {Authorization: `Bearer ${token}`}})
+    const response = await axios.post("https://nodehw2.onrender.com/api/newsposts/", {header, text}, {headers: {Authorization: `Bearer ${token}`}})
     return response.data;
   }
 );
@@ -34,7 +34,7 @@ export const createNewsPost = createAsyncThunk(
 export const updateNewsPost = createAsyncThunk(
   'news/updateNewsPost',
   async ({ id, updates, token }, { rejectWithValue }) => {
-    const response = await fetch(`http://localhost:8000/api/newsposts/${id}`, {
+    const response = await fetch(`https://nodehw2.onrender.com/api/newsposts/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json',
                  'Authorization': `Bearer ${token}`
@@ -50,7 +50,7 @@ export const updateNewsPost = createAsyncThunk(
 );
 
 export const deleteNewsPost = createAsyncThunk('news/deleteNewsPost', async ({id, token} ,  { rejectWithValue }) => {
-  const response = await fetch(`http://localhost:8000/api/newsposts/${id}`, { method: 'DELETE', headers: {'Authorization': `Bearer ${token}`} })
+  const response = await fetch(`https://nodehw2.onrender.com/api/newsposts/${id}`, { method: 'DELETE', headers: {'Authorization': `Bearer ${token}`} })
   if (!response.ok) {
     const errorData = await response.json();
     return rejectWithValue(errorData || 'Unexpected error occured');

@@ -5,7 +5,7 @@ import axios from "axios"
 export const registerUser = createAsyncThunk(
   'auth/registerUser',
   async ({email, password, confirmPassword}) => {
-    const response = await axios.post(`http://localhost:8000/api/auth/register`, {email, password, confirmPassword})
+    const response = await axios.post(`https://nodehw2.onrender.com/api/auth/register`, {email, password, confirmPassword})
     localStorage.setItem('token', response.data)
     console.log(response.data);
     return response.data
@@ -14,7 +14,7 @@ export const registerUser = createAsyncThunk(
 
 export const loginUser = createAsyncThunk('auth/loginUser', 
     async ({email, password}) => {
-    const response = await axios.post('http://localhost:8000/api/auth/login', {email, password})
+    const response = await axios.post('https://nodehw2.onrender.com/api/auth/login', {email, password})
     localStorage.setItem('token', response.data)
     return response.data
 })
