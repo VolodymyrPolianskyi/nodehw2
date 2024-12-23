@@ -8,6 +8,8 @@ import newsRouter from './routes/news.routes.js';
 import usersRouter from './routes/users.routes.js';
 import authenticateToken from './middlewares/jwt.auth.js';
 import UserRepository from './repository/UserRepository.js';
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocument from "./swagger-output.json";
 const app = express();
 const PORT = process.env.PORT || 8000;
 AppDataSource.initialize().then(() => {
@@ -16,6 +18,7 @@ AppDataSource.initialize().then(() => {
     app.use(express.json());
     app.use('/api/auth', usersRouter);
     app.use('/api/newsposts', newsRouter);
+    app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
     app.get('/api/user', authenticateToken, async (req, res) => {
         try {
             const email = res.locals.user.email;

@@ -2,13 +2,14 @@ import { config } from 'dotenv'
 config()
 import "reflect-metadata";
 import express, {Request, Response} from'express'
-import path from'path'
 import cors from'cors'
 import { AppDataSource } from './db.js'
 import newsRouter from './routes/news.routes.js'
 import usersRouter from './routes/users.routes.js'
 import authenticateToken from './middlewares/jwt.auth.js'
 import UserRepository from './repository/UserRepository.js'
+import { setupSwagger } from './swagger.config.js';
+
 
 const app = express();
 const PORT = process.env.PORT || 8000;
@@ -17,6 +18,7 @@ AppDataSource.initialize().then(()=>{
   console.log("initialized");
   app.use(cors())
   app.use(express.json())
+  setupSwagger(app);
   app.use('/api/auth', usersRouter)
   app.use('/api/newsposts', newsRouter)
   
