@@ -35,5 +35,3 @@ export class newsServices{
     return await postRepo.delete(id,email);
   };
 }
-
-jest.mock('../repository/NewsPostRepository');
