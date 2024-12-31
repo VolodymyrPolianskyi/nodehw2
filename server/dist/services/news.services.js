@@ -27,4 +27,3 @@ newsServices.updatePost = async (id, updates, email) => {
 newsServices.deletePost = async (id, email) => {
     return await postRepo.delete(id, email);
 };
-jest.mock('../repository/NewsPostRepository');
