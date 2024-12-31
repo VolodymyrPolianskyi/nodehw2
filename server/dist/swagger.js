@@ -1,5 +1,5 @@
-import swaggerAutogen from 'swagger-autogen';
-import dotenv from 'dotenv';
+import swaggerAutogen from 'swagger-autogen.js';
+import dotenv from 'dotenv.js';
 dotenv.config();
 const doc = {
     info: {

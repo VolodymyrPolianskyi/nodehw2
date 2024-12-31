@@ -8,7 +8,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
-import { NewsPost } from "./NewsPost.js";
+import { NewsPost } from './NewsPost.js';
 let User = class User {
 };
 __decorate([

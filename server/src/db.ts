@@ -1,12 +1,12 @@
 import { config } from 'dotenv';
 config()
 import { DataSource } from 'typeorm'
-import {User} from "./entity/User.js"
-import {NewsPost} from "./entity/NewsPost.js"
+import {User} from "./entity/User"
+import {NewsPost} from "./entity/NewsPost"
 import "reflect-metadata";
-import { AddDeletedColumns1733774555699 } from './migrations/1733774555699-AddDeletedColumns.js';
-import { AddIndexesToColumns1733774489797 } from './migrations/1733774489797-AddIndexesToColumns.js';
-import { RenameTitleToHeader1733774515040 } from './migrations/1733774515040-RenameTitleToHeader.js';
+import { AddDeletedColumns1733774555699 } from './migrations/1733774555699-AddDeletedColumns';
+import { AddIndexesToColumns1733774489797 } from './migrations/1733774489797-AddIndexesToColumns';
+import { RenameTitleToHeader1733774515040 } from './migrations/1733774515040-RenameTitleToHeader';
 
 export const AppDataSource = new DataSource({
   type: "postgres",

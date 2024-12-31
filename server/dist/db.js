@@ -1,8 +1,8 @@
 import { config } from 'dotenv';
 config();
 import { DataSource } from 'typeorm';
-import { User } from "./entity/User.js";
-import { NewsPost } from "./entity/NewsPost.js";
+import { User } from './entity/User.js';
+import { NewsPost } from './entity/NewsPost.js';
 import "reflect-metadata";
 import { AddDeletedColumns1733774555699 } from './migrations/1733774555699-AddDeletedColumns.js';
 import { AddIndexesToColumns1733774489797 } from './migrations/1733774489797-AddIndexesToColumns.js';

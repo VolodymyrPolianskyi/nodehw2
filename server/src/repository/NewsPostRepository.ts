@@ -1,7 +1,7 @@
 import { getRepository, Repository } from "typeorm"
-import {NewsPost} from "../entity/NewsPost.js"
-import { AppDataSource } from "../db.js";
-import { User } from "../entity/User.js";
+import {NewsPost} from "../entity/NewsPost"
+import { AppDataSource } from "../db";
+import { User } from "../entity/User";
 
 export default class NewsPostRepository {
   private repository = AppDataSource.getRepository(NewsPost)

@@ -1,6 +1,6 @@
-import { NewsPost } from "../entity/NewsPost.js";
-import { AppDataSource } from "../db.js";
-import { User } from "../entity/User.js";
+import { NewsPost } from '../entity/NewsPost.js';
+import { AppDataSource } from '../db.js';
+import { User } from '../entity/User.js';
 export default class NewsPostRepository {
     constructor() {
         this.repository = AppDataSource.getRepository(NewsPost);
