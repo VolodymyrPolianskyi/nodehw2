@@ -1,12 +1,13 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { serverLink } from '../../links';
 
 
 
 export const fetchNewsPosts = createAsyncThunk(
   'news/fetchNewsPosts',
   async ({ page = 1, size = 10 } = {}) => {
-    const response = await fetch(`https://nodehw2.onrender.com/api/newsposts?page=${page}&size=${size}`);
+    const response = await fetch(`${serverLink}/newsposts?page=${page}&size=${size}`);
     if (!response.ok) {
       throw new Error(`HTTP error! Status: ${response.status}`);
     }
@@ -16,7 +17,7 @@ export const fetchNewsPosts = createAsyncThunk(
 );
 
 export const fetchNewsPostById = createAsyncThunk('news/fetchNewsPostById', async (id) => {
-  const response = await fetch(`https://nodehw2.onrender.com/api/newsposts/${id}`);
+  const response = await fetch(`${serverLink}/newsposts/${id}`);
   if(!response.ok){
     return response.json()
   }
@@ -26,7 +27,7 @@ export const fetchNewsPostById = createAsyncThunk('news/fetchNewsPostById', asyn
 export const createNewsPost = createAsyncThunk(
   'news/createNewsPost',
   async ({ header, text, token }) => {
-    const response = await axios.post("https://nodehw2.onrender.com/api/newsposts/", {header, text}, {headers: {Authorization: `Bearer ${token}`}})
+    const response = await axios.post(`${serverLink}/newsposts/`, {header, text}, {headers: {Authorization: `Bearer ${token}`}})
     return response.data;
   }
 );
@@ -34,7 +35,7 @@ export const createNewsPost = createAsyncThunk(
 export const updateNewsPost = createAsyncThunk(
   'news/updateNewsPost',
   async ({ id, updates, token }, { rejectWithValue }) => {
-    const response = await fetch(`https://nodehw2.onrender.com/api/newsposts/${id}`, {
+    const response = await fetch(`${serverLink}/newsposts/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json',
                  'Authorization': `Bearer ${token}`
@@ -50,7 +51,7 @@ export const updateNewsPost = createAsyncThunk(
 );
 
 export const deleteNewsPost = createAsyncThunk('news/deleteNewsPost', async ({id, token} ,  { rejectWithValue }) => {
-  const response = await fetch(`https://nodehw2.onrender.com/api/newsposts/${id}`, { method: 'DELETE', headers: {'Authorization': `Bearer ${token}`} })
+  const response = await fetch(`${serverLink}/newsposts/${id}`, { method: 'DELETE', headers: {'Authorization': `Bearer ${token}`} })
   if (!response.ok) {
     const errorData = await response.json();
     return rejectWithValue(errorData || 'Unexpected error occured');
@@ -102,6 +103,7 @@ const newsSlice = createSlice({
       })
       .addCase(deleteNewsPost.fulfilled, (state, action) => {
         state.posts = state.posts.filter(post => post.id !== action.payload);
+        state.currentPost = null;
       })
       .addCase(deleteNewsPost.rejected, (state, action) => {
         state.loading = false;

@@ -26,7 +26,7 @@ export default class NewsPostRepository {
 
   async create(data,email) {
     const author = await AppDataSource.getRepository(User).findOne({where: {email: email}})
-    const post = this.repository.create({...data, author})
+    const post = this.repository.create({...data as NewsPost, author})
     return this.repository.save(post)
   }
 

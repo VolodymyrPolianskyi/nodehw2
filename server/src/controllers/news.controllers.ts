@@ -1,6 +1,8 @@
 import {newsServices} from '../services/news.services'
 import {validatePost} from '../validators/news.validators'
 import { NewsPost } from '../entity/NewsPost';
+import UserRepository from '../repository/UserRepository';
+
 
 
 export default class newsController{
@@ -34,14 +36,22 @@ export default class newsController{
     }
   };
 
-  static createPost = async (req, res) => {
+  static async createPost(req, res, io) {
     const isValid = validatePost(req.body)
     if(!isValid){
       return res.status(400).json({error:"Invalid post body"})
     }
-    const newPost = await newsServices.createPost(req.body, res.locals.user.email)
-    res.status(200).json(newPost)
-  };
+    const { email } = res.locals.user;
+    const post = await newsServices.createPost(req.body, email);
+
+    const userRepo = new UserRepository();
+    const users = await userRepo.getAllUsersWithNotifications();
+
+    io.emit('newPostLog', { title: post.header, content: post.text, link: `/news/${post.id}` });
+    io.emit('newPostAlert', { title: post.header });
+
+    res.status(200).json(post);
+  }
 
   static updatePost = async (req, res) => {
     body: req.body? req.body : null

@@ -3,11 +3,49 @@ import { useSelector, useDispatch } from 'react-redux';
 import { fetchNewsPosts } from './newsSlice';
 import { Link, useNavigate } from 'react-router-dom';
 import { getToken } from '../auth/authSlice';
+import socket from '../../app/soket';
 
 const NewsList = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate()
   const { posts, loading, totalPages, error } = useSelector(state => state.news);
+  
+  const [page, setPage] = useState(1);
+  const [size, setSize] = useState(5);
+  const sendNotif = useSelector(state=>state.auth.sendNotification);
+  const notifChannel = useSelector(state=>state.auth.notifChannel);
+  useEffect(() => {
+    socket.emit('joinRoom', 'logChannel');
+    socket.on('connect', () => {
+      console.log('Connected to server:', socket.id);
+    });
+    
+    if(sendNotif){
+      if(notifChannel == 'log'){
+        socket.on('newPostLog', (data) => {
+          console.log('New post:', data);
+        });
+      }
+
+      if(notifChannel == 'alert'){
+        socket.on('newPostAlert', (data) => {
+          alert(`New post: ${data.title}`);
+        });
+      }
+    }
+
+    return () => {
+      socket.off('connect')
+      socket.off('newPostLog');
+      socket.off('newPostAlert');
+    };
+  }, []);
+  
+  useEffect(() => {
+    dispatch(fetchNewsPosts({ page, size }));
+    dispatch(getToken())
+  }, [dispatch, page, size]);
+  
   if (error) {
     if(error.error){
       navigate('/error')
@@ -17,14 +55,6 @@ const NewsList = () => {
   if(authError){
     navigate('/error')
   }
-
-  const [page, setPage] = useState(1);
-  const [size, setSize] = useState(5);
-
-  useEffect(() => {
-    dispatch(fetchNewsPosts({ page, size }));
-    dispatch(getToken())
-  }, [dispatch, page, size]);
 
   const token = useSelector((state)=>state.auth.token)
 

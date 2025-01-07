@@ -15,6 +15,12 @@ export class User {
     @Column({default:false, type:'boolean'})
     deleted: boolean;
 
+    @Column({ default: true, type: 'boolean' })
+    sendNotification: boolean;
+
+    @Column({ type: 'text', default: 'log' })
+    notificationChannel: 'log' | 'alert';  
+
     @OneToMany(()=>NewsPost, (newsPost) => newsPost.author)
     newsPosts: Relation<NewsPost[]>
 }

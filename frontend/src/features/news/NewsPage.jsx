@@ -1,25 +1,25 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { deleteNewsPost, fetchNewsPostById, fetchNewsPosts } from './newsSlice';
+import { deleteNewsPost, fetchNewsPostById } from './newsSlice';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { getToken } from '../auth/authSlice';
 
 const NewsPage = () =>{
     const { id } = useParams();
     const dispatch = useDispatch();
-    const { currentPost } = useSelector((state) => state.news);
     const navigate = useNavigate()
-
+    
     useEffect(()=>{
         dispatch(fetchNewsPostById(id))
         dispatch(getToken())
     },[dispatch,id])
-
+    
+    const { currentPost } = useSelector((state) => state.news);
+    
     const token = useSelector((state)=>state.auth.token)
 
     const handleDelete = () => {
         dispatch(deleteNewsPost({id, token}))
-        dispatch(fetchNewsPosts())
         navigate('/')
     }
 

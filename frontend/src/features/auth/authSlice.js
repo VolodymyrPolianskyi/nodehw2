@@ -1,11 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from "axios"
+import { serverLink } from '../../links';
 
 
 export const registerUser = createAsyncThunk(
   'auth/registerUser',
   async ({email, password, confirmPassword}) => {
-    const response = await axios.post(`https://nodehw2.onrender.com/api/auth/register`, {email, password, confirmPassword})
+    const response = await axios.post(`${serverLink}/auth/register`, {email, password, confirmPassword})
     localStorage.setItem('token', response.data)
     console.log(response.data);
     return response.data
@@ -13,15 +14,25 @@ export const registerUser = createAsyncThunk(
 )
 
 export const loginUser = createAsyncThunk('auth/loginUser', 
-    async ({email, password}) => {
-    const response = await axios.post('https://nodehw2.onrender.com/api/auth/login', {email, password})
-    localStorage.setItem('token', response.data)
-    return response.data
+  async ({email, password}) => {
+  const response = await axios.post(`${serverLink}/auth/login`, {email, password})
+  localStorage.setItem('token', response.data)
+  return response.data
 })
 
 export const getToken = createAsyncThunk("auth/getToken", async () =>{
-    const token = localStorage.getItem('token') 
-    return token
+  const token = localStorage.getItem('token') 
+  return token
+})
+
+export const toggleNotif = createAsyncThunk('auth/toggleNotif', async (token) => {
+  const response = await axios.post(`${serverLink}/auth/togglenotif`, {}, {headers: {Authorization: `Bearer ${token}`}} )
+  return response.data
+})
+
+export const toggleNotifCahnnel = createAsyncThunk('auth/toggleNotifChannel', async (token) => {
+  const response = await axios.post(`${serverLink}/auth/togglenotifChannel`, {}, {headers: {Authorization: `Bearer ${token}`}} )
+  return response.data
 })
 
 const authSlice = createSlice({
@@ -29,7 +40,9 @@ const authSlice = createSlice({
     initialState: {
       token: null, 
       error: null,
-      loading: false
+      loading: false,
+      sendNotification: true,
+      notifChannel: 'alert'
     },
     reducers: {},
     extraReducers: (builder) => {
@@ -62,6 +75,18 @@ const authSlice = createSlice({
         })
         .addCase(getToken.rejected, (state)=>{
             state.token = null
+        })
+        .addCase(toggleNotif.fulfilled, (state)=>{
+          state.sendNotification = !state.sendNotification
+        })
+        .addCase(toggleNotifCahnnel.fulfilled, (state)=>{
+          state.notifChannel = state.notifChannel == 'log' ? "alert" : 'log';
+        })
+        .addCase(toggleNotif.rejected, (state, action)=>{
+          state.error = action.payload
+        })
+        .addCase(toggleNotifCahnnel.rejected, (state, action)=>{
+          state.error = action.payload
         })
     },
   });
