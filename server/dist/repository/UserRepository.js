@@ -20,7 +20,43 @@ export default class UserRepository {
         }
         return jwt.sign({ email }, "SomeSecretKey", { expiresIn: "1h" });
     }
+    async getAllUsersWithNotifications() {
+        return this.repository.find({
+            where: {
+                sendNotification: true,
+            },
+        });
+    }
     async getUserByEmail(email) {
         return this.repository.findOne({ where: { email } });
+    }
+    async toggleNotif(email) {
+        try {
+            let user = await this.repository.findOne({ where: { email } });
+            await this.repository.update(user.user_id, { ...user, sendNotification: !user.sendNotification });
+            return { message: 'ok' };
+        }
+        catch (error) {
+            console.log(error);
+            return { error: error.message };
+        }
+    }
+    async toggleNotifChannel(email) {
+        try {
+            let user = await this.repository.findOne({ where: { email } });
+            let channel;
+            if (user.notificationChannel == 'log') {
+                channel = 'alert';
+            }
+            else {
+                channel = 'log';
+            }
+            await this.repository.update(user.user_id, { ...user, notificationChannel: channel });
+            return { message: 'ok' };
+        }
+        catch (error) {
+            console.log(error);
+            return { error: error.message };
+        }
     }
 }

@@ -31,4 +31,24 @@ usersController.loginUser = async (req, res) => {
     }
     res.status(202).json(result);
 };
+usersController.toggleNotif = async (req, res) => {
+    const email = res.locals.user.email;
+    let response = await usersService.toggleNotif(email);
+    if (response.message) {
+        return res.status(200).json(response);
+    }
+    else {
+        return res.status(501).json({ message: "Some problem occured" });
+    }
+};
+usersController.toggleNotifChannel = async (req, res) => {
+    const email = res.locals.user.email;
+    let response = await usersService.toggleNotifChannel(email);
+    if (response.message) {
+        return res.status(200).json(response);
+    }
+    else {
+        return res.status(501).json({ message: "Some problem occured" });
+    }
+};
 export default usersController;

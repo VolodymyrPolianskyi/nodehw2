@@ -2,7 +2,21 @@ var _a;
 import { newsServices } from '../services/news.services.js';
 import { validatePost } from '../validators/news.validators.js';
 import { NewsPost } from '../entity/NewsPost.js';
+import UserRepository from '../repository/UserRepository.js';
 class newsController {
+    static async createPost(req, res, io) {
+        const isValid = validatePost(req.body);
+        if (!isValid) {
+            return res.status(400).json({ error: "Invalid post body" });
+        }
+        const { email } = res.locals.user;
+        const post = await newsServices.createPost(req.body, email);
+        const userRepo = new UserRepository();
+        const users = await userRepo.getAllUsersWithNotifications();
+        io.emit('newPostLog', { title: post.header, content: post.text, link: `/news/${post.id}` });
+        io.emit('newPostAlert', { title: post.header });
+        res.status(200).json(post);
+    }
 }
 _a = newsController;
 newsController.getAllPosts = async (req, res) => {
@@ -32,14 +46,6 @@ newsController.getPostById = async (req, res) => {
     catch (err) {
         res.status(500).json({ error: 'Failed to fetch post' });
     }
-};
-newsController.createPost = async (req, res) => {
-    const isValid = validatePost(req.body);
-    if (!isValid) {
-        return res.status(400).json({ error: "Invalid post body" });
-    }
-    const newPost = await newsServices.createPost(req.body, res.locals.user.email);
-    res.status(200).json(newPost);
 };
 newsController.updatePost = async (req, res) => {
     body: req.body ? req.body : null;

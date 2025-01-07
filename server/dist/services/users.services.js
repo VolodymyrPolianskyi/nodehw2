@@ -25,3 +25,9 @@ usersService.loginUser = async (email, password) => {
         return { error: 'Authentication failed' };
     }
 };
+usersService.toggleNotif = async (email) => {
+    return await userRepo.toggleNotif(email);
+};
+usersService.toggleNotifChannel = async (email) => {
+    return await userRepo.toggleNotifChannel(email);
+};
